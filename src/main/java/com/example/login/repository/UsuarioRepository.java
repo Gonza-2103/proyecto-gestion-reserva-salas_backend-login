@@ -8,6 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ Repositorio JPA para la gestión de persistencia de la clase 'usuario'
+ en la base de datos PostgreSQL (Supabase)
+ */
+
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
@@ -23,9 +28,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     //Busca un usuario activo por correo (útil si se desactivan cuentas sin borrarlas)
     Optional<Usuario> findByCorreoIgnoreCaseAndActivoTrue(String correo);
 
-    //Lista usuarios filtrados por rol (RELATOR o COORDINADOR)
+    //Lista usuarios filtrados por rol (RELATOR / COORDINADOR)
     List<Usuario> findByRol(RolUsuario rol);
 
-    //Lista solo los usuarios activos
+    //Lista solo los usuarios activos en el sistema
     List<Usuario> findByActivoTrue();
 }

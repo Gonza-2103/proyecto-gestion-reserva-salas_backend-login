@@ -3,10 +3,15 @@ package com.example.login.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ Clase que almacena las credenciales y el perfil de cada usuario del sistema
+ */
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
 
+    //ID, nombre, correo, password, rol, activo y fechaCreacion son los atributos obligatorios de la clase 'usuario'
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,9 +35,11 @@ public class Usuario {
     @Column(name = "fecha_creacion", nullable = false, updatable = false)
     private LocalDateTime fechaCreacion;
 
+    //Constructor vacío obligatorio para que JPA/Hibernate pueda instanciar la entidad al leer desde la BD
     public Usuario() {
     }
 
+    //Constructor con parámetros para crear nuevos usuarios fácilmente desde 'service'
     public Usuario(String nombre, String correo, String password, RolUsuario rol) {
         this.nombre = nombre;
         this.correo = correo;
@@ -41,6 +48,10 @@ public class Usuario {
         this.activo = true;
     }
 
+    /**
+     Método de ciclo de vida JPA que se ejecuta automáticamente justo
+     antes de guardar un nuevo usuario en la base de datos por 1ra vez
+     */
     @PrePersist
     protected void onCreate() {
         this.fechaCreacion = LocalDateTime.now();
@@ -49,8 +60,7 @@ public class Usuario {
         }
     }
 
-    //Getters & Setters
-
+    //Getters & Setters (permiten leer y modificar los atributos de forma segura)
     public Long getId() {
         return id;
     }
